@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/transaction")
-public class MainController {
+public class TransactionController {
 
     @Autowired
     TransactionService transactionService;
