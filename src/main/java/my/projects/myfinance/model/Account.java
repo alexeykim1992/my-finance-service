@@ -15,11 +15,11 @@ public class Account {
     @Column(name = "NAME")
     String name;
     @Column(name = "VALUE")
-    String value;
+    Long value;
     @Column(name = "LIMIT")
-    String limit;
+    Long limit;
     @Column(name = "ICON")
-    String icon;
+    int icon;
     @Column(name = "CURRENCY")
     int currency;
     @Column(name = "TYPE")
@@ -30,11 +30,20 @@ public class Account {
     Timestamp expirationDate;
     @Column(name = "USER_ID")
     int userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ICON", referencedColumnName = "ID", insertable = false, updatable = false)
+    Icon iconObject;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CURRENCY", referencedColumnName = "ID", insertable = false, updatable = false)
+    Currency currencyObject;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TYPE", referencedColumnName = "ID", insertable = false, updatable = false)
+    AccountType accountType;
 
     public Account() {
     }
 
-    public Account(int id, String name, String value, String limit, String icon, int currency, int type, Timestamp creationDate, Timestamp expirationDate, int userId) {
+    public Account(int id, String name, Long value, Long limit, int icon, int currency, int type, Timestamp creationDate, Timestamp expirationDate, int userId) {
         this.id = id;
         this.name = name;
         this.value = value;
@@ -55,15 +64,15 @@ public class Account {
         return name;
     }
 
-    public String getValue() {
+    public Long getValue() {
         return value;
     }
 
-    public String getLimit() {
+    public Long getLimit() {
         return limit;
     }
 
-    public String getIcon() {
+    public int getIcon() {
         return icon;
     }
 
@@ -87,6 +96,18 @@ public class Account {
         return userId;
     }
 
+    public Icon getIconObject() {
+        return iconObject;
+    }
+
+    public Currency getCurrencyObject() {
+        return currencyObject;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
     public Account setId(int id) {
         this.id = id;
         return this;
@@ -97,17 +118,17 @@ public class Account {
         return this;
     }
 
-    public Account setValue(String value) {
+    public Account setValue(Long value) {
         this.value = value;
         return this;
     }
 
-    public Account setLimit(String limit) {
+    public Account setLimit(Long limit) {
         this.limit = limit;
         return this;
     }
 
-    public Account setIcon(String icon) {
+    public Account setIcon(int icon) {
         this.icon = icon;
         return this;
     }
