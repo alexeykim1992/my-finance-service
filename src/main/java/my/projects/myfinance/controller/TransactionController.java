@@ -1,6 +1,5 @@
 package my.projects.myfinance.controller;
 
-import my.projects.myfinance.dto.GetTransactionsRequestDto;
 import my.projects.myfinance.model.Transaction;
 import my.projects.myfinance.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,10 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping
     @ResponseBody
-    public List<Transaction> getTransactions(@RequestBody GetTransactionsRequestDto request) {
-        return transactionService.getTransactions(request.getUserId());
+    public List<Transaction> getTransactions(@RequestParam int userId) {
+        return transactionService.getTransactions(userId);
     }
 }
