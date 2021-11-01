@@ -11,11 +11,13 @@ public class UserService {
     @Autowired
     UserRepo userRepo;
 
+    private final static Integer currentUser = 2;
+
     public User getCurrentUser() {
-        return userRepo.findFirstById(1);
+        return userRepo.findFirstById(currentUser);
     }
 
-    public Integer getCurrentUserId(){
-        return 1;
+    public Integer getCurrentUserId() {
+        return currentUser;
     }
 }

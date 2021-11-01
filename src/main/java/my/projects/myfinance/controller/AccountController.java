@@ -18,8 +18,8 @@ public class AccountController {
 
     @GetMapping
     @ResponseBody
-    public List<AccountDto> getAccounts(@RequestParam int userId) {
-        return accountService.getAccounts(userId);
+    public List<AccountDto> getAccounts() {
+        return accountService.getAccounts();
     }
 
     @PostMapping

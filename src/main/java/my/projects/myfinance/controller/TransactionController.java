@@ -18,8 +18,8 @@ public class TransactionController {
 
     @GetMapping
     @ResponseBody
-    public List<Transaction> getTransactions(@RequestParam int userId) {
-        return transactionService.getTransactions(userId);
+    public List<Transaction> getTransactions() {
+        return transactionService.getTransactions();
     }
 
     @PostMapping

@@ -24,9 +24,11 @@ public class AccountService {
     IconRepo iconRepo;
     @Autowired
     AccountTypeRepo atRepo;
+    @Autowired
+    UserService userService;
 
-    public List<AccountDto> getAccounts(int userId) {
-        return accountRepo.getAccountByUserId(userId).stream().map(account -> new AccountDto()
+    public List<AccountDto> getAccounts() {
+        return accountRepo.getAccountByUserId(userService.getCurrentUserId()).stream().map(account -> new AccountDto()
                         .setId(account.getId())
                         .setName(account.getName())
                         .setValue(account.getValue())
@@ -51,7 +53,7 @@ public class AccountService {
                     .setCurrency(1)
                     .setType(at.getId())
                     .setCreationDate(new Timestamp(System.currentTimeMillis()))
-                    .setUserId(2);
+                    .setUserId(userService.getCurrentUserId());
             return accountRepo.save(account).getId();
         }
         return -1L;
