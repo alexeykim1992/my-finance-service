@@ -11,5 +11,5 @@ public interface AccountRepo extends JpaRepository<Account, Integer> {
 
     List<Account> getAccountByUserId(int userId);
 
-    Account findFirstById(int id);
+    Account findFirstById(Long id);
 }

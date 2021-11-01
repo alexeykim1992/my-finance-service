@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccountRequestDto {
 
-    Integer id;
+    Long id;
     String name;
     String type;
     String icon;
@@ -13,14 +13,14 @@ public class AccountRequestDto {
     public AccountRequestDto() {
     }
 
-    public AccountRequestDto(Integer id, String name, String type, String icon) {
+    public AccountRequestDto(Long id, String name, String type, String icon) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.icon = icon;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -34,6 +34,26 @@ public class AccountRequestDto {
 
     public String getIcon() {
         return icon;
+    }
+
+    public AccountRequestDto setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public AccountRequestDto setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public AccountRequestDto setType(String type) {
+        this.type = type;
+        return this;
+    }
+
+    public AccountRequestDto setIcon(String icon) {
+        this.icon = icon;
+        return this;
     }
 
     @Override
