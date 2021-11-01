@@ -16,14 +16,14 @@ public class Account {
     String name;
     @Column(name = "VALUE")
     Long value;
-    @Column(name = "LIMIT")
+    @Column(name = "ACCOUNT_LIMIT")
     Long limit;
     @Column(name = "ICON")
     int icon;
     @Column(name = "CURRENCY")
     int currency;
-    @Column(name = "TYPE")
-    int type;
+    @Column(name = "ACCOUNT_TYPE")
+    short type;
     @Column(name = "CREATION_DATE")
     Timestamp creationDate;
     @Column(name = "EXPIRATION_DATE")
@@ -37,13 +37,13 @@ public class Account {
     @JoinColumn(name = "CURRENCY", referencedColumnName = "ID", insertable = false, updatable = false)
     Currency currencyObject;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TYPE", referencedColumnName = "ID", insertable = false, updatable = false)
+    @JoinColumn(name = "ACCOUNT_TYPE", referencedColumnName = "ID", insertable = false, updatable = false)
     AccountType accountType;
 
     public Account() {
     }
 
-    public Account(int id, String name, Long value, Long limit, int icon, int currency, int type, Timestamp creationDate, Timestamp expirationDate, int userId) {
+    public Account(int id, String name, Long value, Long limit, int icon, int currency, short type, Timestamp creationDate, Timestamp expirationDate, int userId) {
         this.id = id;
         this.name = name;
         this.value = value;
@@ -80,7 +80,7 @@ public class Account {
         return currency;
     }
 
-    public int getType() {
+    public short getType() {
         return type;
     }
 
@@ -138,7 +138,7 @@ public class Account {
         return this;
     }
 
-    public Account setType(int type) {
+    public Account setType(short type) {
         this.type = type;
         return this;
     }

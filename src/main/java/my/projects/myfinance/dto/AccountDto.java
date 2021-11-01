@@ -1,6 +1,5 @@
 package my.projects.myfinance.dto;
 
-import javax.persistence.Column;
 import java.sql.Timestamp;
 
 public class AccountDto {
