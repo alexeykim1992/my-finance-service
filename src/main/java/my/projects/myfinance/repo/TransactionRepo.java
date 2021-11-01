@@ -10,4 +10,6 @@ import java.util.List;
 public interface TransactionRepo extends JpaRepository<Transaction, Long> {
 
     List<Transaction> getTransactionByUserId(int userId);
+
+    Transaction findFirstById(Long id);
 }
