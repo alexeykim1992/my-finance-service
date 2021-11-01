@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class AccountDto {
 
-    int id;
+    Long id;
     String name;
     Long value;
     Long limit;
@@ -17,7 +17,7 @@ public class AccountDto {
     public AccountDto() {
     }
 
-    public AccountDto(int id, String name, Long value, Long limit, String icon, String currency, String type, Timestamp creationDate, Timestamp expirationDate) {
+    public AccountDto(Long id, String name, Long value, Long limit, String icon, String currency, String type, Timestamp creationDate, Timestamp expirationDate) {
         this.id = id;
         this.name = name;
         this.value = value;
@@ -29,7 +29,7 @@ public class AccountDto {
         this.expirationDate = expirationDate;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -65,7 +65,7 @@ public class AccountDto {
         return expirationDate;
     }
 
-    public AccountDto setId(int id) {
+    public AccountDto setId(Long id) {
         this.id = id;
         return this;
     }

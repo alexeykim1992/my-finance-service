@@ -39,7 +39,7 @@ public class AccountService {
                 .collect(Collectors.toList());
     }
 
-    public Integer addAccount(AccountRequestDto request) {
+    public Long addAccount(AccountRequestDto request) {
         Icon icon = iconRepo.findFirstByValue(request.getIcon());
         AccountType at = atRepo.findFirstByValue(request.getType());
         if (icon != null && at != null) {
@@ -52,13 +52,12 @@ public class AccountService {
                     .setType(at.getId())
                     .setCreationDate(new Timestamp(System.currentTimeMillis()))
                     .setUserId(2);
-            accountRepo.save(account);
-            return account.getId();
+            return accountRepo.save(account).getId();
         }
-        return -1;
+        return -1L;
     }
 
-    public Integer editAccount(AccountRequestDto request) {
+    public Long editAccount(AccountRequestDto request) {
         Account account = accountRepo.findFirstById(request.getId());
         Icon icon = iconRepo.findFirstByValue(request.getIcon());
         AccountType at = atRepo.findFirstByValue(request.getType());
@@ -67,8 +66,8 @@ public class AccountService {
                     .setIcon(icon.getId())
                     .setType(at.getId())
                     .setUpdateDate(new Timestamp(System.currentTimeMillis()));
-            accountRepo.save(account);
+            return accountRepo.save(account).getId();
         }
-        return -1;
+        return -1L;
     }
 }

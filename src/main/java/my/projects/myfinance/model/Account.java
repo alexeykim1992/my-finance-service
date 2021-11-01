@@ -11,7 +11,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ACCOUNT")
     @SequenceGenerator(name = "SEQ_ACCOUNT", sequenceName = "SEQ_ACCOUNT", allocationSize = 1)
     @Column(name = "ID")
-    int id;
+    Long id;
     @Column(name = "NAME")
     String name;
     @Column(name = "VALUE")
@@ -45,7 +45,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(int id, String name, Long value, Long limit, int icon, int currency, short type, Timestamp creationDate, Timestamp updateDate, Timestamp expirationDate, int userId, Icon iconObject, Currency currencyObject, AccountType accountType) {
+    public Account(Long id, String name, Long value, Long limit, int icon, int currency, short type, Timestamp creationDate, Timestamp updateDate, Timestamp expirationDate, int userId, Icon iconObject, Currency currencyObject, AccountType accountType) {
         this.id = id;
         this.name = name;
         this.value = value;
@@ -62,7 +62,7 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -118,7 +118,7 @@ public class Account {
         return accountType;
     }
 
-    public Account setId(int id) {
+    public Account setId(Long id) {
         this.id = id;
         return this;
     }
