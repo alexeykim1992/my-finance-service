@@ -1,7 +1,7 @@
 package my.projects.myfinance.service;
 
-import my.projects.myfinance.dto.AccountAddRequestDto;
 import my.projects.myfinance.dto.AccountDto;
+import my.projects.myfinance.dto.AccountRequestDto;
 import my.projects.myfinance.model.Account;
 import my.projects.myfinance.model.AccountType;
 import my.projects.myfinance.model.Icon;
@@ -39,7 +39,7 @@ public class AccountService {
                 .collect(Collectors.toList());
     }
 
-    public Integer addAccount(AccountAddRequestDto request) {
+    public Integer addAccount(AccountRequestDto request) {
         Icon icon = iconRepo.findFirstByValue(request.getIcon());
         AccountType at = atRepo.findFirstByValue(request.getType());
         if (icon != null && at != null) {
@@ -54,6 +54,20 @@ public class AccountService {
                     .setUserId(2);
             accountRepo.save(account);
             return account.getId();
+        }
+        return -1;
+    }
+
+    public Integer editAccount(AccountRequestDto request) {
+        Account account = accountRepo.findFirstById(request.getId());
+        Icon icon = iconRepo.findFirstByValue(request.getIcon());
+        AccountType at = atRepo.findFirstByValue(request.getType());
+        if (account != null && icon != null && at != null) {
+            account.setName(request.getName())
+                    .setIcon(icon.getId())
+                    .setType(at.getId())
+                    .setUpdateDate(new Timestamp(System.currentTimeMillis()));
+            accountRepo.save(account);
         }
         return -1;
     }

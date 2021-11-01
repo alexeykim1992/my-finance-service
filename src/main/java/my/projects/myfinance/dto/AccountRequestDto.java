@@ -3,24 +3,24 @@ package my.projects.myfinance.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AccountAddRequestDto {
+public class AccountRequestDto {
 
-    String id;
+    Integer id;
     String name;
     String type;
     String icon;
 
-    public AccountAddRequestDto() {
+    public AccountRequestDto() {
     }
 
-    public AccountAddRequestDto(String id, String name, String type, String icon) {
+    public AccountRequestDto(Integer id, String name, String type, String icon) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.icon = icon;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 

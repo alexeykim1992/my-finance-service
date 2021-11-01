@@ -26,6 +26,8 @@ public class Account {
     short type;
     @Column(name = "CREATION_DATE")
     Timestamp creationDate;
+    @Column(name = "UPDATE_DATE")
+    Timestamp updateDate;
     @Column(name = "EXPIRATION_DATE")
     Timestamp expirationDate;
     @Column(name = "USER_ID")
@@ -43,7 +45,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(int id, String name, Long value, Long limit, int icon, int currency, short type, Timestamp creationDate, Timestamp expirationDate, int userId) {
+    public Account(int id, String name, Long value, Long limit, int icon, int currency, short type, Timestamp creationDate, Timestamp updateDate, Timestamp expirationDate, int userId, Icon iconObject, Currency currencyObject, AccountType accountType) {
         this.id = id;
         this.name = name;
         this.value = value;
@@ -52,8 +54,12 @@ public class Account {
         this.currency = currency;
         this.type = type;
         this.creationDate = creationDate;
+        this.updateDate = updateDate;
         this.expirationDate = expirationDate;
         this.userId = userId;
+        this.iconObject = iconObject;
+        this.currencyObject = currencyObject;
+        this.accountType = accountType;
     }
 
     public int getId() {
@@ -86,6 +92,10 @@ public class Account {
 
     public Timestamp getCreationDate() {
         return creationDate;
+    }
+
+    public Timestamp getUpdateDate() {
+        return updateDate;
     }
 
     public Timestamp getExpirationDate() {
@@ -145,6 +155,11 @@ public class Account {
 
     public Account setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
+        return this;
+    }
+
+    public Account setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
         return this;
     }
 

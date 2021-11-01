@@ -10,4 +10,6 @@ import java.util.List;
 public interface AccountRepo extends JpaRepository<Account, Integer> {
 
     List<Account> getAccountByUserId(int userId);
+
+    Account findFirstById(int id);
 }

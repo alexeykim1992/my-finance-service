@@ -1,6 +1,6 @@
 package my.projects.myfinance.controller;
 
-import my.projects.myfinance.dto.AccountAddRequestDto;
+import my.projects.myfinance.dto.AccountRequestDto;
 import my.projects.myfinance.dto.AccountDto;
 import my.projects.myfinance.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,13 @@ public class AccountController {
 
     @PostMapping
     @ResponseBody
-    public Integer addAccount(@RequestBody AccountAddRequestDto request){
+    public Integer addAccount(@RequestBody AccountRequestDto request){
         return accountService.addAccount(request);
+    }
+
+    @PutMapping
+    @ResponseBody
+    public Integer editAccount(@RequestBody AccountRequestDto request){
+        return accountService.editAccount(request);
     }
 }
