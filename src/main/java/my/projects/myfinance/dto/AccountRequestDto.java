@@ -9,15 +9,17 @@ public class AccountRequestDto {
     String name;
     String type;
     String icon;
+    Long limit;
 
     public AccountRequestDto() {
     }
 
-    public AccountRequestDto(Long id, String name, String type, String icon) {
+    public AccountRequestDto(Long id, String name, String type, String icon, Long limit) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.icon = icon;
+        this.limit = limit;
     }
 
     public Long getId() {
@@ -34,6 +36,10 @@ public class AccountRequestDto {
 
     public String getIcon() {
         return icon;
+    }
+
+    public Long getLimit() {
+        return limit;
     }
 
     public AccountRequestDto setId(Long id) {
@@ -56,13 +62,19 @@ public class AccountRequestDto {
         return this;
     }
 
+    public AccountRequestDto setLimit(Long limit) {
+        this.limit = limit;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return "AccountAddRequestDto{" +
-                "id='" + id + '\'' +
+        return "AccountRequestDto{" +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", icon='" + icon + '\'' +
+                ", limit=" + limit +
                 '}';
     }
 }

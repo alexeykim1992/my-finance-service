@@ -47,7 +47,7 @@ public class AccountService {
         if (icon != null && at != null) {
             Account account = new Account()
                     .setName(request.getName())
-                    .setValue(0L)
+                    .setValue(request.getLimit())
                     .setLimit(0L)
                     .setIcon(icon.getId())
                     .setCurrency(1)
@@ -67,6 +67,7 @@ public class AccountService {
             account.setName(request.getName())
                     .setIcon(icon.getId())
                     .setType(at.getId())
+                    .setLimit(request.getLimit())
                     .setUpdateDate(new Timestamp(System.currentTimeMillis()));
             return accountRepo.save(account).getId();
         }
