@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/icon")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 public class IconController {
 
     @Autowired

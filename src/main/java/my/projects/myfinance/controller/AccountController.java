@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/account")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 public class AccountController {
 
     @Autowired
