@@ -28,7 +28,8 @@ public class AccountService {
     UserService userService;
 
     public List<AccountDto> getAccounts() {
-        return accountRepo.getAccountByUserId(userService.getCurrentUserId()).stream().map(account -> new AccountDto()
+        return accountRepo.getAccountByUserId(userService.getCurrentUserId())
+                .stream().map(account -> new AccountDto()
                         .setId(account.getId())
                         .setName(account.getName())
                         .setValue(account.getValue())
@@ -70,6 +71,16 @@ public class AccountService {
                     .setType(at.getId())
                     .setLimit(request.getLimit())
                     .setUpdateDate(new Timestamp(System.currentTimeMillis()));
+            return accountRepo.save(account).getId();
+        }
+        return -1L;
+    }
+
+    public Long softDeleteAccount(AccountRequestDto request) {
+        Account account = accountRepo.findFirstByIdAndUserId(
+                request.getId(), userService.getCurrentUserId());
+        if (account != null) {
+            account.setExpirationDate(new Timestamp(System.currentTimeMillis()));
             return accountRepo.save(account).getId();
         }
         return -1L;

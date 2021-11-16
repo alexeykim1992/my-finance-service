@@ -33,4 +33,10 @@ public class AccountController {
     public Long editAccount(@RequestBody AccountRequestDto request) {
         return accountService.editAccount(request);
     }
+
+    @DeleteMapping
+    @ResponseBody
+    public Long deleteAccount(@RequestBody AccountRequestDto request) {
+        return accountService.softDeleteAccount(request);
+    }
 }
