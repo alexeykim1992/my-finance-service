@@ -11,5 +11,5 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
 
     List<Transaction> getTransactionByUserId(int userId);
 
-    Transaction findFirstByIdAAndUserId(Long id, Integer userId);
+    Transaction findFirstByIdAndUserId(Long id, Integer userId);
 }
