@@ -60,7 +60,8 @@ public class AccountService {
     }
 
     public Long editAccount(AccountRequestDto request) {
-        Account account = accountRepo.findFirstById(request.getId());
+        Account account = accountRepo.findFirstByIdAndUserId(
+                request.getId(), userService.getCurrentUserId());
         Icon icon = iconRepo.findFirstByValue(request.getIcon());
         AccountType at = atRepo.findFirstByValue(request.getType());
         if (account != null && icon != null && at != null) {

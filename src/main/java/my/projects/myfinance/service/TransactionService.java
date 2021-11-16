@@ -37,7 +37,8 @@ public class TransactionService {
     }
 
     public Long editTransaction(TransactionRequestDto request) {
-        Transaction transaction = transactionRepo.findFirstById(request.getId());
+        Transaction transaction = transactionRepo.findFirstByIdAAndUserId(
+                request.getId(), userService.getCurrentUserId());
         if (transaction != null) {
             transaction.setDate(request.getDate())
                     .setSourceId(request.getFrom())
@@ -51,7 +52,8 @@ public class TransactionService {
     }
 
     public Long deleteTransaction(TransactionRequestDto request) {
-        Transaction transaction = transactionRepo.findFirstById(request.getId());
+        Transaction transaction = transactionRepo.findFirstByIdAAndUserId(
+                request.getId(), userService.getCurrentUserId());
         if (transaction != null) {
             transactionRepo.delete(transaction);
             return transaction.getId();
