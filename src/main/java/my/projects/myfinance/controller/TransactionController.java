@@ -33,4 +33,10 @@ public class TransactionController {
     public Long editTransaction(@RequestBody TransactionRequestDto request) {
         return transactionService.editTransaction(request);
     }
+
+    @DeleteMapping
+    @ResponseBody
+    public Long deleteTransaction(@RequestBody TransactionRequestDto request) {
+        return transactionService.deleteTransaction(request);
+    }
 }

@@ -49,4 +49,13 @@ public class TransactionService {
         }
         return -1L;
     }
+
+    public Long deleteTransaction(TransactionRequestDto request) {
+        Transaction transaction = transactionRepo.findFirstById(request.getId());
+        if (transaction != null) {
+            transactionRepo.delete(transaction);
+            return transaction.getId();
+        }
+        return -1L;
+    }
 }
