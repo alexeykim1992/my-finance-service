@@ -26,6 +26,18 @@ public class TransactionService {
         return transactionRepo.getTransactionByUserId(userService.getCurrentUserId());
     }
 
+    public List<Transaction> getTransactions(Integer accountId){
+        return transactionRepo.getAllTransactions(userService.getCurrentUserId(), accountId);
+    }
+
+    public List<Transaction> getDebitTransactions(Integer accountId) {
+        return transactionRepo.getDebitTransactions(userService.getCurrentUserId(), accountId);
+    }
+
+    public List<Transaction> getCreditTransactions(Integer accountId) {
+        return transactionRepo.getCreditTransactions(userService.getCurrentUserId(), accountId);
+    }
+
     public Long addTransaction(TransactionRequestDto request) {
         Transaction transaction = new Transaction()
                 .setDate(request.getDate())

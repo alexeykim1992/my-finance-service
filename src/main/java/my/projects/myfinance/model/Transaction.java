@@ -180,4 +180,23 @@ public class Transaction {
         this.userId = userId;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", date=" + date +
+                ", sourceId=" + sourceId +
+                ", sourceValue=" + sourceValue +
+                ", sourceCurrency=" + sourceCurrency +
+                ", destinationId=" + destinationId +
+                ", destinationValue=" + destinationValue +
+                ", destinationCurrency=" + destinationCurrency +
+                ", tags='" + tags + '\'' +
+                ", description='" + description + '\'' +
+                ", creationDate=" + creationDate +
+                ", updateDate=" + updateDate +
+                ", userId=" + userId +
+                '}';
+    }
 }
