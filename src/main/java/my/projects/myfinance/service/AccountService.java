@@ -27,6 +27,11 @@ public class AccountService {
     @Autowired
     UserService userService;
 
+    public Account getAccount(Long accountId) {
+        return accountRepo.findFirstByIdAndUserId(
+                accountId, userService.getCurrentUserId());
+    }
+
     public List<AccountDto> getAccounts() {
         return accountRepo.getAccountByUserId(userService.getCurrentUserId())
                 .stream().map(account -> new AccountDto()
@@ -61,8 +66,7 @@ public class AccountService {
     }
 
     public Long editAccount(AccountRequestDto request) {
-        Account account = accountRepo.findFirstByIdAndUserId(
-                request.getId(), userService.getCurrentUserId());
+        Account account = this.getAccount(request.getId());
         Icon icon = iconRepo.findFirstByValue(request.getIcon());
         AccountType at = atRepo.findFirstByValue(request.getType());
         if (account != null && icon != null && at != null) {
@@ -77,8 +81,7 @@ public class AccountService {
     }
 
     public Long softDeleteAccount(AccountRequestDto request) {
-        Account account = accountRepo.findFirstByIdAndUserId(
-                request.getId(), userService.getCurrentUserId());
+        Account account = this.getAccount(request.getId());
         if (account != null) {
             account.setExpirationDate(new Timestamp(System.currentTimeMillis()));
             return accountRepo.save(account).getId();

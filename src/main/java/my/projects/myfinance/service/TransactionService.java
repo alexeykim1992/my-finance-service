@@ -17,6 +17,11 @@ public class TransactionService {
     @Autowired
     UserService userService;
 
+    public Transaction getTransaction(Long transactionId) {
+        return transactionRepo.findFirstByIdAndUserId(
+                transactionId, userService.getCurrentUserId());
+    }
+
     public List<Transaction> getTransactions() {
         return transactionRepo.getTransactionByUserId(userService.getCurrentUserId());
     }
@@ -37,8 +42,7 @@ public class TransactionService {
     }
 
     public Long editTransaction(TransactionRequestDto request) {
-        Transaction transaction = transactionRepo.findFirstByIdAndUserId(
-                request.getId(), userService.getCurrentUserId());
+        Transaction transaction = this.getTransaction(request.getId());
         if (transaction != null) {
             transaction.setDate(request.getDate())
                     .setSourceId(request.getFrom())
@@ -52,8 +56,7 @@ public class TransactionService {
     }
 
     public Long deleteTransaction(TransactionRequestDto request) {
-        Transaction transaction = transactionRepo.findFirstByIdAndUserId(
-                request.getId(), userService.getCurrentUserId());
+        Transaction transaction = this.getTransaction(request.getId());
         if (transaction != null) {
             transactionRepo.delete(transaction);
             return transaction.getId();
