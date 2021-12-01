@@ -39,4 +39,10 @@ public class AccountController {
     public Long deleteAccount(@RequestBody AccountRequestDto request) {
         return accountService.softDeleteAccount(request);
     }
+
+    @GetMapping("/calculate")
+    @ResponseBody
+    public Integer calculate() {
+        return accountService.calculateAllBalances();
+    }
 }
