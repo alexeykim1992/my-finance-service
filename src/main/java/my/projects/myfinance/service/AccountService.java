@@ -47,18 +47,26 @@ public class AccountService {
                 accountId, userService.getCurrentUserId());
     }
 
-    public List<AccountDto> getAccounts() {
+    public List<AccountDto> getAccounts(String month) {
+        Calendar today = Calendar.getInstance();
+        today.setTime(new Date());
+        String finalMonth = month != null ? month :
+                String.format("%4d%2d", today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1);
         return accountRepo.getAccountByUserId(userService.getCurrentUserId())
-                .stream().map(account -> new AccountDto()
-                        .setId(account.getId())
-                        .setName(account.getName())
-                        .setValue(account.getValue())
-                        .setLimit(account.getLimit())
-                        .setIcon(account.getIconObject().getValue())
-                        .setCurrency(account.getCurrencyObject().getShortName())
-                        .setType(account.getAccountType().getValue())
-                        .setCreationDate(account.getCreationDate())
-                        .setExpirationDate(account.getExpirationDate()))
+                .stream().map(account -> {
+                    AccountBalance balance = accountBalanceRepo.findFirstByAccountIdAndMonth(
+                            account.getId(), finalMonth);
+                    return new AccountDto()
+                            .setId(account.getId())
+                            .setName(account.getName())
+                            .setValue(balance != null ? balance.getValueBefore() : 0)
+                            .setLimit(account.getLimit())
+                            .setIcon(account.getIconObject().getValue())
+                            .setCurrency(account.getCurrencyObject().getShortName())
+                            .setType(account.getAccountType().getValue())
+                            .setCreationDate(account.getCreationDate())
+                            .setExpirationDate(account.getExpirationDate());
+                })
                 .collect(Collectors.toList());
     }
 

@@ -18,8 +18,8 @@ public class AccountController {
 
     @GetMapping
     @ResponseBody
-    public List<AccountDto> getAccounts() {
-        return accountService.getAccounts();
+    public List<AccountDto> getAccounts(@RequestParam(required = false) String month) {
+        return accountService.getAccounts(month);
     }
 
     @PostMapping
