@@ -134,19 +134,14 @@ public class AccountService {
                             : transaction.getDestinationValue())));
             creationDate.setTime(account.getCreationDate());
             creationDate.set(Calendar.DAY_OF_MONTH, 1);
-            Long value_before = 0L;
+            Long valueBefore = 0L;
             while (getMonthYear(creationDate) <= getMonthYear(finishDate)) {
                 Long value = debitResult.get(getMonthYear(creationDate));
                 value = value == null ? 0 : value;
-                AccountBalance accountBalance = new AccountBalance()
-                        .setAccountId(account.getId())
-                        .setMonth(getMonthYear(creationDate) + "")
-                        .setValueBefore(value_before)
-                        .setValueChange(value)
-                        .setValueAfter(value_before + value)
-                        .setUpdateDate(new Timestamp(System.currentTimeMillis()));
-                accountBalanceRepo.save(accountBalance);
-                value_before += value;
+                addOrUpdateBalance(account.getId(),
+                        getMonthYear(creationDate) + "",
+                        valueBefore, value);
+                valueBefore += value;
                 creationDate.set(Calendar.MONTH, creationDate.get(Calendar.MONTH) + 1);
             }
         }
@@ -154,5 +149,24 @@ public class AccountService {
 
     private Integer getMonthYear(Calendar calendar) {
         return calendar.get(Calendar.YEAR) * 100 + calendar.get(Calendar.MONTH) + 1;
+    }
+
+    public void addOrUpdateBalance(Long accountId, String month, Long valueBefore, Long value) {
+        AccountBalance balance = accountBalanceRepo.findFirstByAccountIdAndMonth(accountId, month);
+        if (balance != null) {
+            accountBalanceRepo.save(balance
+                    .setValueBefore(valueBefore)
+                    .setValueChange(value)
+                    .setValueAfter(valueBefore + value)
+                    .setUpdateDate(new Timestamp(System.currentTimeMillis())));
+        } else {
+            accountBalanceRepo.save(new AccountBalance()
+                    .setAccountId(accountId)
+                    .setMonth(month)
+                    .setValueBefore(valueBefore)
+                    .setValueChange(value)
+                    .setValueAfter(valueBefore + value)
+                    .setUpdateDate(new Timestamp(System.currentTimeMillis())));
+        }
     }
 }

@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountBalanceRepo extends JpaRepository<AccountBalance, Long> {
+
+    AccountBalance findFirstByAccountIdAndMonth(Long accountId, String month);
 }
