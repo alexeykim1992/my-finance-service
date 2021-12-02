@@ -44,6 +44,12 @@ public class Transaction {
     Timestamp updateDate;
     @Column(name = "USER_ID")
     int userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "SOURCE_CURRENCY", referencedColumnName = "ID", insertable = false, updatable = false)
+    Currency sourceCurrencyObject;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "DESTINATION_CURRENCY", referencedColumnName = "ID", insertable = false, updatable = false)
+    Currency destinationCurrencyObject;
 
     public Transaction() {
     }
@@ -114,6 +120,14 @@ public class Transaction {
 
     public int getUserId() {
         return userId;
+    }
+
+    public Currency getSourceCurrencyObject() {
+        return sourceCurrencyObject;
+    }
+
+    public Currency getDestinationCurrencyObject() {
+        return destinationCurrencyObject;
     }
 
     public Transaction setId(Long id) {

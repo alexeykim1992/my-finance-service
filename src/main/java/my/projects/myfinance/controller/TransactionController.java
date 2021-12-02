@@ -1,7 +1,7 @@
 package my.projects.myfinance.controller;
 
+import my.projects.myfinance.dto.TransactionDto;
 import my.projects.myfinance.dto.TransactionRequestDto;
-import my.projects.myfinance.model.Transaction;
 import my.projects.myfinance.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class TransactionController {
 
     @GetMapping
     @ResponseBody
-    public List<Transaction> getTransactions() {
+    public List<TransactionDto> getTransactions() {
         return transactionService.getTransactions();
     }
 

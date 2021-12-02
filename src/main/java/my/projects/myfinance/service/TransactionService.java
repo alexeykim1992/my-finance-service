@@ -1,5 +1,6 @@
 package my.projects.myfinance.service;
 
+import my.projects.myfinance.dto.TransactionDto;
 import my.projects.myfinance.dto.TransactionRequestDto;
 import my.projects.myfinance.model.Transaction;
 import my.projects.myfinance.repo.TransactionRepo;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
@@ -22,11 +24,27 @@ public class TransactionService {
                 transactionId, userService.getCurrentUserId());
     }
 
-    public List<Transaction> getTransactions() {
-        return transactionRepo.getTransactionByUserId(userService.getCurrentUserId());
+    public List<TransactionDto> getTransactions() {
+        return transactionRepo.getTransactionByUserId(userService.getCurrentUserId()).stream()
+                .map(transaction -> new TransactionDto()
+                        .setId(transaction.getId())
+                        .setDate(transaction.getDate())
+                        .setSourceId(transaction.getSourceId())
+                        .setSourceValue(transaction.getSourceValue())
+                        .setSourceCurrency(transaction.getSourceCurrencyObject() == null ? "!!!"
+                                : transaction.getSourceCurrencyObject().getShortName())
+                        .setDestinationId(transaction.getDestinationId())
+                        .setDestinationValue(transaction.getDestinationValue())
+                        .setDestinationCurrency(transaction.getDestinationCurrencyObject() == null ? "!!!"
+                                : transaction.getDestinationCurrencyObject().getShortName())
+                        .setTags(transaction.getTags())
+                        .setDescription(transaction.getDescription())
+                        .setCreationDate(transaction.getCreationDate())
+                        .setUpdateDate(transaction.getUpdateDate()))
+                .collect(Collectors.toList());
     }
 
-    public List<Transaction> getTransactions(Integer accountId){
+    public List<Transaction> getTransactions(Integer accountId) {
         return transactionRepo.getAllTransactions(userService.getCurrentUserId(), accountId);
     }
 
