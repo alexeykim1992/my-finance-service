@@ -1,6 +1,6 @@
 package my.projects.myfinance.controller;
 
-import my.projects.myfinance.model.User;
+import my.projects.myfinance.dto.UserDto;
 import my.projects.myfinance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ public class UserController {
 
     @GetMapping
     @ResponseBody
-    public User getCurrentUser() {
-        return userService.getCurrentUser();
+    public UserDto getCurrentUser() {
+        return userService.getCurrentUserDto();
     }
 }

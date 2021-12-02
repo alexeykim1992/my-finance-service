@@ -1,9 +1,6 @@
 package my.projects.myfinance.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -19,15 +16,21 @@ public class User {
     String login;
     @Column(name = "CREATION_DATE")
     Timestamp creationDate;
+    @Column(name = "CURRENCY")
+    Integer currency;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CURRENCY", referencedColumnName = "ID", insertable = false, updatable = false)
+    Currency currencyObject;
 
     public User() {
     }
 
-    public User(Integer id, String name, String login, Timestamp creationDate) {
+    public User(Integer id, String name, String login, Timestamp creationDate, Integer currency) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.creationDate = creationDate;
+        this.currency = currency;
     }
 
     public Integer getId() {
@@ -40,6 +43,14 @@ public class User {
 
     public String getLogin() {
         return login;
+    }
+
+    public Integer getCurrency() {
+        return currency;
+    }
+
+    public Currency getCurrencyObject() {
+        return currencyObject;
     }
 
     public Timestamp getCreationDate() {
@@ -63,6 +74,11 @@ public class User {
 
     public User setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
+        return this;
+    }
+
+    public User setCurrency(Integer currency) {
+        this.currency = currency;
         return this;
     }
 }
