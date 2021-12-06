@@ -10,19 +10,25 @@ public class TransactionRequestDto {
     Long id;
     Date date;
     Integer from;
+    Integer fromValue;
+    String fromCurrency;
     Integer to;
-    Integer value;
+    Integer toValue;
+    String toCurrency;
     String description;
 
     public TransactionRequestDto() {
     }
 
-    public TransactionRequestDto(Long id, Date date, Integer from, Integer to, Integer value, String description) {
+    public TransactionRequestDto(Long id, Date date, Integer from, Integer fromValue, String fromCurrency, Integer to, Integer toValue, String toCurrency, String description) {
         this.id = id;
         this.date = date;
         this.from = from;
+        this.fromValue = fromValue;
+        this.fromCurrency = fromCurrency;
         this.to = to;
-        this.value = value;
+        this.toValue = toValue;
+        this.toCurrency = toCurrency;
         this.description = description;
     }
 
@@ -38,12 +44,24 @@ public class TransactionRequestDto {
         return from;
     }
 
+    public Integer getFromValue() {
+        return fromValue;
+    }
+
+    public String getFromCurrency() {
+        return fromCurrency;
+    }
+
     public Integer getTo() {
         return to;
     }
 
-    public Integer getValue() {
-        return value;
+    public Integer getToValue() {
+        return toValue;
+    }
+
+    public String getToCurrency() {
+        return toCurrency;
     }
 
     public String getDescription() {
@@ -62,12 +80,24 @@ public class TransactionRequestDto {
         this.from = from;
     }
 
+    public void setFromValue(Integer fromValue) {
+        this.fromValue = fromValue;
+    }
+
+    public void setFromCurrency(String fromCurrency) {
+        this.fromCurrency = fromCurrency;
+    }
+
     public void setTo(Integer to) {
         this.to = to;
     }
 
-    public void setValue(Integer value) {
-        this.value = value;
+    public void setToValue(Integer toValue) {
+        this.toValue = toValue;
+    }
+
+    public void setToCurrency(String toCurrency) {
+        this.toCurrency = toCurrency;
     }
 
     public void setDescription(String description) {

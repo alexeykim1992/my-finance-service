@@ -61,10 +61,10 @@ public class TransactionService {
                 .setDate(request.getDate())
                 .setUserId(userService.getCurrentUserId())
                 .setSourceId(request.getFrom())
-                .setSourceValue(request.getValue())
+                .setSourceValue(request.getFromValue())
                 .setSourceCurrency(1)
                 .setDestinationId(request.getTo())
-                .setDestinationValue(request.getValue())
+                .setDestinationValue(request.getToValue())
                 .setDestinationCurrency(1)
                 .setDescription(request.getDescription())
                 .setCreationDate(new Timestamp(System.currentTimeMillis()));
@@ -77,8 +77,8 @@ public class TransactionService {
             transaction.setDate(request.getDate())
                     .setSourceId(request.getFrom())
                     .setDestinationId(request.getTo())
-                    .setSourceValue(request.getValue())
-                    .setDestinationValue(request.getValue())
+                    .setSourceValue(request.getFromValue())
+                    .setDestinationValue(request.getToValue())
                     .setDescription(request.getDescription());
             return transactionRepo.save(transaction).getId();
         }
