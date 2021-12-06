@@ -47,6 +47,10 @@ public class AccountService {
                 accountId, userService.getCurrentUserId());
     }
 
+    public Account getAccount(String accountName) {
+        return accountRepo.findFirstByNameAndUserId(accountName, userService.getCurrentUserId());
+    }
+
     public List<AccountDto> getAccounts(String month) {
         Calendar today = Calendar.getInstance();
         today.setTime(new Date());
