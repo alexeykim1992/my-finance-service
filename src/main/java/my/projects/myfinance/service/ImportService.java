@@ -12,8 +12,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 @Service
@@ -26,14 +29,15 @@ public class ImportService {
     @Autowired
     AccountService accountService;
 
-    public void parseTransaction(String filename) throws FileNotFoundException {
+    public void parseTransaction(String filename) throws FileNotFoundException, ParseException {
         Scanner scanner = new Scanner(new File(filename));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         while (scanner.hasNextLine()) {
-            String str = scanner.nextLine();
-            List<String> params = Arrays.asList(str.split("\",\""));
+            List<String> params = Arrays.asList(scanner.nextLine().split("\",\""));
             if (params.size() >= 10) {
                 TransactionImport transaction = new TransactionImport()
-                        .setDate(new Date(System.currentTimeMillis()))
+                        .setDate(new Date(sdf.parse(
+                                params.get(0).replace("\"", "")).getTime()))
                         .setType(params.get(1))
                         .setSource(params.get(2))
                         .setDestination(params.get(3))
@@ -52,28 +56,32 @@ public class ImportService {
     }
 
     public void transportToMainTable() {
-        transactionImportRepo.findAll().stream().map(record -> {
-            Account source = accountService.getAccount(record.getSource());
-            Account destination = accountService.getAccount(record.getDestination());
-            if (source == null || destination == null
-                    || !record.getSourceValue().matches("[0-9]+")
-                    || !record.getDestinationValue().matches("[0-9]+")) {
-                return null;
-            }
-            return new Transaction()
-                    .setDate(record.getDate())
-                    .setUserId(1)
-                    .setSourceId(source.getId().intValue())
-                    .setSourceCurrency(source.getCurrency())
-                    .setSourceValue(Integer.parseInt(record.getSourceValue()))
-                    .setDestinationId(destination.getId().intValue())
-                    .setDestinationCurrency(destination.getCurrency())
-                    .setDestinationValue(Integer.parseInt(record.getDestinationValue()))
-                    .setTags(record.getTags())
-                    .setDescription(record.getDescription())
-                    .setCreationDate(new Timestamp(System.currentTimeMillis()));
-        }).forEach(transaction -> {
-            if (transaction != null) transactionRepo.save(transaction);
-        });
+        transactionImportRepo.findAll().stream()
+                .map(record -> {
+                    Account source = accountService.getAccount(record.getSource());
+                    Account destination = accountService.getAccount(record.getDestination());
+                    if (source == null || destination == null) {
+                        System.out.println(record.getSource() + " => " + record.getDestination());
+                        return null;
+                    }
+                    return new Transaction()
+                            .setDate(record.getDate())
+                            .setUserId(1)
+                            .setSourceId(source.getId().intValue())
+                            .setSourceCurrency(source.getCurrency())
+                            .setSourceValue(
+                                    Math.round(Float.parseFloat(
+                                            record.getSourceValue().replace(",", "."))))
+                            .setDestinationId(destination.getId().intValue())
+                            .setDestinationCurrency(destination.getCurrency())
+                            .setDestinationValue(
+                                    Math.round(Float.parseFloat(
+                                            record.getDestinationValue().replace(",", "."))))
+                            .setTags(record.getTags())
+                            .setDescription(record.getDescription())
+                            .setCreationDate(new Timestamp(System.currentTimeMillis()));
+                })
+                .filter(Objects::nonNull)
+                .forEach(transaction -> transactionRepo.save(transaction));
     }
 }
