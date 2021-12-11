@@ -80,8 +80,8 @@ public class AccountService {
         if (icon != null && at != null) {
             Account account = new Account()
                     .setName(request.getName())
-                    .setValue(request.getLimit())
-                    .setLimit(0L)
+                    .setValue(0L)
+                    .setLimit(request.getLimit())
                     .setIcon(icon.getId())
                     .setCurrency(1)
                     .setType(at.getId())
@@ -146,7 +146,7 @@ public class AccountService {
                             : transaction.getDestinationValue())));
             creationDate.setTime(account.getCreationDate());
             creationDate.set(Calendar.DAY_OF_MONTH, 1);
-            Long valueBefore = 0L;
+            Long valueBefore = account.getValue();
             while (getMonthYear(creationDate) <= getMonthYear(finishDate)) {
                 Long value = debitResult.get(getMonthYear(creationDate));
                 value = value == null ? 0 : value;
