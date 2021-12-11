@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,8 +25,14 @@ public class TransactionService {
                 transactionId, userService.getCurrentUserId());
     }
 
-    public List<TransactionDto> getTransactions() {
+    public List<TransactionDto> getTransactions(String yearMonth) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
         return transactionRepo.getTransactionByUserId(userService.getCurrentUserId()).stream()
+                .filter(transaction -> {
+                    String transactionYearMonth = transaction.getDate() != null
+                            ? sdf.format(transaction.getDate()) : "";
+                    return transactionYearMonth.equals(yearMonth);
+                })
                 .map(transaction -> new TransactionDto()
                         .setId(transaction.getId())
                         .setDate(transaction.getDate())

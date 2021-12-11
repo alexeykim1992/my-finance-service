@@ -18,8 +18,8 @@ public class TransactionController {
 
     @GetMapping
     @ResponseBody
-    public List<TransactionDto> getTransactions() {
-        return transactionService.getTransactions();
+    public List<TransactionDto> getTransactions(@RequestParam String month) {
+        return transactionService.getTransactions(month);
     }
 
     @PostMapping
