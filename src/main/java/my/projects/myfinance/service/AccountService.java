@@ -81,7 +81,7 @@ public class AccountService {
             Account account = new Account()
                     .setName(request.getName())
                     .setValue(0L)
-                    .setLimit(request.getLimit())
+                    .setLimit(request.getLimit() == null ? 0 : request.getLimit())
                     .setIcon(icon.getId())
                     .setCurrency(1)
                     .setType(at.getId())
