@@ -19,6 +19,7 @@ public class MyFinanceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 //        service.parseTransaction("src/main/resources/export/transactions.csv");
+//        service.transportToMainTable();
 //        System.out.println("Загрузка завершена");
     }
 }

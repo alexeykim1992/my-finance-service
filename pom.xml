@@ -6,12 +6,12 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.6</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>my.projects</groupId>
     <artifactId>my-finance-service</artifactId>
-    <version>0.0.1</version>
-    <packaging>war</packaging>
+    <version>0.0.2</version>
+    <packaging>jar</packaging>
     <name>my-finance-service</name>
     <description>Rest service for MyFinance</description>
     <properties>
