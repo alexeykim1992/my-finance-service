@@ -16,9 +16,9 @@ public class ExchangeController {
 
     @GetMapping
     @ResponseBody
-    public Double test(@RequestParam String source,
-                       @RequestParam String destination,
-                       @RequestParam String date) throws ParseException {
-        return exchangeService.getRate(source, destination, date);
+    public Double getExchangeRate(@RequestParam String source,
+                                  @RequestParam String destination,
+                                  @RequestParam String date) throws ParseException {
+        return exchangeService.getExchangeRate(source, destination, date);
     }
 }

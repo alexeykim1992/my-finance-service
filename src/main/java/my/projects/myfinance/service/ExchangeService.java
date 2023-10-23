@@ -20,12 +20,15 @@ public class ExchangeService {
     @Autowired
     CurrencyRepo currencyRepo;
 
-    public Double getRate(String source, String destination, String date) throws ParseException {
-        if (source.equals(destination)) return 1.;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+    public Double getExchangeRate(String source, String destination, String date) throws ParseException {
+        if (source.equals(destination))
+            return 1.;
         Currency sourceCurrency = currencyRepo.findFirstByShortName(source);
         Currency destinationCurrency = currencyRepo.findFirstByShortName(destination);
-        if (sourceCurrency == null || destinationCurrency == null) return 0.;
+        if (sourceCurrency == null || destinationCurrency == null)
+            return 0.;
         List<ExchangeRate> sourceRate = exchangeRepo.findExchangeRate(
                 sourceCurrency.getId(), sdf.parse(date), PageRequest.of(0, 1));
         List<ExchangeRate> destinationRate = exchangeRepo.findExchangeRate(
